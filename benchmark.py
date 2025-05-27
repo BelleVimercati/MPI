@@ -2,16 +2,9 @@ import subprocess
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Defina quantos processos testar
-process_counts = [1, 2, 4, 6, 8]  # Adapte conforme sua máquina
-
-# Caminho do arquivo do código MPI
+process_counts = [1, 2, 4, 6, 8] 
 mpi_program = "mpi_matrix_vector.py"
-
-# Número de repetições por configuração (para média)
 repeats = 3
-
-# Listas para armazenar dados
 times = []
 
 print("Iniciando benchmark...")
@@ -50,6 +43,13 @@ for n_proc in process_counts:
 t1 = times[0]
 speedup = [t1 / t for t in times]
 efficiency = [s / p * 100 for s, p in zip(speedup, process_counts)]
+
+# Impressão em formato de tabela
+print(f"{'Processos':>10} | {'Tempo (s)':>10} | {'Speedup':>8} | {'Eficiência (%)':>15}")
+print("-" * 55)
+
+for p, t, s, e in zip(process_counts, times, speedup, efficiency):
+    print(f"{p:>10} | {t:>10.5f} | {s:>8.5f} | {e:>15.5f}")
 
 # Plotando gráficos
 plt.figure(figsize=(10, 5))
