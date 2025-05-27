@@ -12,6 +12,8 @@ print("Iniciando benchmark...")
 for n_proc in process_counts:
     current_times = []
     print(f"\nTestando com {n_proc} processos...")
+
+    matrix_size_N = None
     
     for i in range(repeats):
         print(f"  Execução {i+1}/{repeats}")
@@ -25,6 +27,17 @@ for n_proc in process_counts:
         output = result.stdout.strip().splitlines()
         
         for line in output:
+            line = line.strip()
+            # Procura pela linha que indica o tamanho da matriz
+            if line.startswith("tamanho da matriz:"):
+                try:
+                    # Extrai o valor de N da linha (ex: "tamanho da matriz: 9000 x 9000")
+                    parts = line.split(":")
+                    if len(parts) > 1:
+                        size_str = parts[1].strip().split("x")[0].strip()
+                        matrix_size_N = int(size_str)
+                except:
+                    continue # Ignor
             try:
                 parts = line.strip().split()
                 if len(parts) == 2 and int(parts[0]) == n_proc:
@@ -35,6 +48,9 @@ for n_proc in process_counts:
             except:
                 continue
     
+    if matrix_size_N is not None:
+        print(f"  Tamanho da matriz (N): {matrix_size_N}")
+
     media = np.mean(current_times)
     times.append(media)
     print(f"  -> Tempo médio com {n_proc} processos: {media:.4f} segundos")

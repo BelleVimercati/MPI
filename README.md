@@ -46,14 +46,11 @@ python benchmark.py
 - Cada configuração foi executada **3 vezes**, tomando a média dos tempos.
 - Métricas avaliadas:
   - **Tempo de execução**.
-  - **Speedup:**  
-    $$
-    Speedup = \frac{Tempo\_sequencial}{Tempo\_paralelo}
-    $$
-  - **Eficiência:**  
-    $$
-    Eficiência = \frac{Speedup}{Nº\_de\_processos} \times 100\%
-    $$
+- **Speedup:**  
+  ![Speedup](https://latex.codecogs.com/svg.image?\bg_white%20Speedup%20=%20\frac{Tempo\_sequencial}{Tempo\_paralelo})
+
+- **Eficiência:**  
+  ![Eficiência](https://latex.codecogs.com/svg.image?\bg_white%20Eficiência%20=%20\frac{Speedup}{Nº\_de\_processos}%20\times%20100\%)
 
 <!-- ## 📊 Resultados Obtidos
 

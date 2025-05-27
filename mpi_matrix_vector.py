@@ -7,7 +7,11 @@ rank = comm.Get_rank() #identificador dentro do processo atual
 size = comm.Get_size() #captura o numero total de processos
 
 # N define o tamanho da matriz (NxN)
-N = 10000
+# N = 10000
+N = int(9000 * np.sqrt(size))
+
+if N < 9000:
+    N = 9000
 
 # Inicialização da matriz no processo 0
 if rank == 0:
@@ -62,8 +66,3 @@ comm.Gatherv(local_y, [y, recvcounts_in_elems, displs_out, MPI.DOUBLE], root=0)
 
 # Coletando os tempos de cada processo
 total_time = comm.reduce(local_time, op=MPI.MAX, root=0)
-
-if rank == 0:
-    print(f"{size} {total_time:.4f}")
-    #print(f"Tempo total de execução: {total_time:.4f} segundos")
-    #print("Resultado y:", y)
